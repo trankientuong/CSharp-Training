@@ -1,0 +1,59 @@
+﻿@page "/counter"
+@page "/counter/{CurrentCount:int}"
+
+<h1>Counter</h1>
+
+<p>Current count: @CurrentCount</p>
+
+<button class="btn btn-primary" @onclick=IncrementCount>Click me</button>
+
+<Component @ref="child"></Component>
+@* <Component CurrentCount="CurrentCount" OnHandleCount="OnHandleCount"></Component> *@
+
+<ul>
+    <li><a href="/counter/42">Navigate to /counter/42</a></li>
+    <li><a href="/counter/123">Navigate to /counter/123</a></li>
+    <li><a href="/counter/">Navigate to /counter</a></li>
+</ul>
+
+@code {
+    [Parameter]
+    public int CurrentCount { get; set; }
+    private Component child;
+
+    @* public async override Task SetParametersAsync(ParameterView parameters)
+    {
+        CurrentCount = CurrentCount ?? 1;
+        await base.SetParametersAsync(parameters);
+    } *@
+
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+        Console.WriteLine($"Counter - OnParametersSet at {DateTime.Now.ToString("hh:MM:ss.fff")}");
+    }
+
+    
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        base.OnAfterRender(firstRender);
+        Console.WriteLine($"firstRender is {firstRender}");
+        Console.WriteLine($"Counter - OnAfterRender at {DateTime.Now.ToString("hh:MM:ss.fff")}");
+    }
+
+    void IncrementCount()
+    {
+        CurrentCount++;
+        this.child.CurrentCount = CurrentCount;
+        this.child.Refresh();
+    }
+
+    void OnHandleCount(int currentCount)
+    {
+        this.CurrentCount = currentCount;
+    }
+
+}
+
+

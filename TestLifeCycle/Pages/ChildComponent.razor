@@ -1,0 +1,40 @@
+<h3>Child Component</h3>
+
+@code {
+
+    [Parameter]
+    public int CurrentCount { get; set; }
+
+    public override Task SetParametersAsync(ParameterView parameters)
+    {
+        Console.WriteLine($"Child - SetParametersAsync at {DateTime.Now.ToString("hh:MM:ss.fff")}");
+        return base.SetParametersAsync(parameters);
+    }
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        Console.WriteLine($"Child - OnInitialized at {DateTime.Now.ToString("hh:MM:ss.fff")}");
+    }
+
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+        Console.WriteLine($"Child - OnParametersSet at {DateTime.Now.ToString("hh:MM:ss.fff")}");
+    }
+
+    ////////////////////////////////////////////////////////
+
+    protected override bool ShouldRender()
+    {
+        Console.WriteLine("Child ShouldRender triggered");
+        return base.ShouldRender();
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        base.OnAfterRender(firstRender);
+        Console.WriteLine($"Child firstRender is {firstRender}");
+        Console.WriteLine($"Child - OnAfterRender at {DateTime.Now.ToString("hh:MM:ss.fff")}");
+    }
+}

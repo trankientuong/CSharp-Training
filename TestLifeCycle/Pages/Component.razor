@@ -1,0 +1,32 @@
+<h3>Component</h3>
+
+<p>Current count: @CurrentCount</p>
+
+<button class="btn btn-secondary" @onclick=ClickMe>Click me</button>
+
+@code {
+    @* [Parameter] *@
+    public int CurrentCount { get; set; }
+
+    [Parameter]
+    public EventCallback<int> OnHandleCount { get; set; }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        base.OnAfterRender(firstRender);
+        Console.WriteLine($"ChildComponent - OnAfterRender at {DateTime.Now.ToString("hh:MM:ss.fff")}");
+    }
+
+    private void ClickMe()
+    {
+        CurrentCount++;
+        OnHandleCount.InvokeAsync(CurrentCount);
+    }
+
+    public void Refresh()
+    {
+        StateHasChanged();
+    }
+
+}
+

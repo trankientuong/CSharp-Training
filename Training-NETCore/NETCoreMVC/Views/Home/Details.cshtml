@@ -1,0 +1,23 @@
+@* @using NETCOREMVC.Models *@
+@* @model Student *@
+@{
+    var student = ViewData["Student"] as Student;
+    @* Layout = "~/Views/Shared/_Layout.cshtml"; *@
+}
+
+<table>
+    <tr>
+        <th>StudentID</th>
+        <th>Student Name</th>
+        <th>Gender</th>
+        <th>Branch</th>
+        <th>Section</th>
+    </tr>
+    <tr>
+        <td>@student.StudentId</td>
+        <td>@student.Name</td>
+        <td>@student.Gender</td>
+        <td>@student.Branch</td>
+        <td>@student.Section</td>
+    </tr>
+</table>
